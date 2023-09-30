@@ -1,0 +1,12 @@
+---
+meta:
+  environment: python
+  toolchain:
+    name: pip
+    version: 3.8
+build:
+  requirementsPath: requirements.txt
+run:
+  scriptName: wsgi.py
+  persistenceMount: /flask_lbr_1
+  containerPort: 80

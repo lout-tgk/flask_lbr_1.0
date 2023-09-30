@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Главная страница
+{% endblock %}
+
+{% block body %}
+
+<form action = "/change_contrast" method="POST">
+    <center>
+       <label for="num_lvl">Изменить контраст на</label>
+       <input type="number"
+       id="num_lvl"
+       name="num_lvl" value="{{ value_num }}" min="-999" max="258" step="1" >
+       <input type="submit" value="Изменить">
+    </center>
+</form>
+
+<form action = "/change_contrast" >
+    <center>
+        <div style=margin-top:30px;>
+            <h4>Реззультат изменения контраста</h4></div>
+
+        <img src="{{output_for_html}}" width="600" height="400" >
+        <h3>график пикселей</h3>
+        <img src="{{graph_for_html}}" width="600" height="400">
+    </center>
+</form>
+
+{% endblock %}

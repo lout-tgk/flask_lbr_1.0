@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+Главная страница
+{% endblock %}
+
+
+{% block body %}
+
+<footer class="container">
+<center>
+    <h1>Загрузи изображение,чтобы начать </h1> <!--# надпись на странице-->
+
+
+{% for msg in get_flashed_messages() %}
+
+<div   class="alert alert-info">{{msg}}</div>
+
+{% endfor %}
+
+
+<div style=margin-top:25px; >
+    <form method=post enctype=multipart/form-data>
+      <input type=file name=file >
+      <input type=submit value=Продолжить >
+    </form>
+
+</div>
+</center>
+</footer>
+
+{% endblock %}
+
+
