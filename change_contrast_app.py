@@ -5,6 +5,7 @@ import numpy as np
 from PIL import Image
 from flask import Flask, flash, request, redirect, render_template
 from werkzeug.utils import secure_filename
+from forms import UploadForm, CaptchaForm
 
 # создаем экземпляр приложения
 app = Flask(__name__)
@@ -19,10 +20,8 @@ app.config['SECRET_KEY'] = str(os.urandom(10))
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['OUTPUT_FOLDER'] = OUTPUT_FOLDER
 
-
-@app.route('/', methods=['GET'])
-def index():
-    return render_template("index.html")
+app.config['RECAPTCHA_PUBLIC_KEY'] = '6LeGTG0oAAAAAAo8z4DsgxMNhrIkHipMk8qImq1J'
+app.config['RECAPTCHA_PRIVATE_KEY'] = '6LeGTG0oAAAAAPpRjOdsrIQMcWWGXxaSkPOR9Zdz'
 
 
 def change_contrast(img_0, level):
@@ -43,32 +42,23 @@ def allowed_file(filename):
 
 @app.route('/', methods=['GET', 'POST'])
 def upload_file():
-    if request.method == 'POST':
-        # проверим, передается ли в запросе файл
-        if 'file' not in request.files:
-            # После перенаправления на страницу загрузки
-            # покажем сообщение пользователю
-            flash('Не могу прочитать файл')
-            return redirect("/")
-        file = request.files['file']
-        # Если файл не выбран, то браузер может
-        # отправить пустой файл без имени.
-        if file.filename == '':
-            flash('Нет выбранного файла')
-            return redirect("/")
-        if file and allowed_file(file.filename):
-            # безопасно извлекаем оригинальное имя файла
-            filename = secure_filename(file.filename)
-            # сохраняем файл если все прошло успешно
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], 'input_image.jpg'))
-            # переходим на страницу обработки загруженного изображения
-            return redirect('/input_image')
+    form = UploadForm()
+    form_captcha = CaptchaForm()
+    if request.method == "POST":
+        if form_captcha.validate_on_submit():
 
+            if form.validate_on_submit():
+                f = form.upload.data
+                filename = secure_filename(f.filename)
+                f.save(os.path.join(app.config['UPLOAD_FOLDER'], 'input_image.jpg'))
+                return redirect('/input_image')
+            else:
+                flash('Загрузите файл с другим расширением')
+            return render_template('index.html', form=form, form_captcha=form_captcha)
         else:
-            flash('Выберите файл с другим расширением ')
-            return redirect("/")
-
-    return render_template("index.html")
+            flash('Подтвердите, что вы не робот')
+            return render_template('index.html', form=form, form_captcha=form_captcha)
+    return render_template('index.html', form=form, form_captcha=form_captcha)
 
 
 @app.route('/input_image', methods=['GET'])
