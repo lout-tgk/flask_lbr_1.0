@@ -1,10 +1,8 @@
 import os
-
 import matplotlib.pyplot as plt
 import numpy as np
 from PIL import Image
 from flask import Flask, flash, request, redirect, render_template
-from werkzeug.utils import secure_filename
 from forms import UploadForm, CaptchaForm
 
 # создаем экземпляр приложения
@@ -49,7 +47,7 @@ def upload_file():
 
             if form.validate_on_submit():
                 f = form.upload.data
-                filename = secure_filename(f.filename)
+                # filename = secure_filename(f.filename)
                 f.save(os.path.join(app.config['UPLOAD_FOLDER'], 'input_image.jpg'))
                 return redirect('/input_image')
             else:
