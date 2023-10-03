@@ -18,8 +18,8 @@ app.config['SECRET_KEY'] = str(os.urandom(10))
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['OUTPUT_FOLDER'] = OUTPUT_FOLDER
 
-app.config['RECAPTCHA_PUBLIC_KEY'] = '6LfMVG0oAAAAADtJ6OueCi6ZBg8dXJ6bGpOogo57'
-app.config['RECAPTCHA_PRIVATE_KEY'] = '6LfMVG0oAAAAACbNDDu_ADvN_BduCBk08r-4EPxX'
+app.config['RECAPTCHA_PUBLIC_KEY'] = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'
+app.config['RECAPTCHA_PRIVATE_KEY'] = '6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe'
 
 
 def change_contrast(img_0, level):
@@ -47,7 +47,6 @@ def upload_file():
 
             if form.validate_on_submit():
                 f = form.upload.data
-                # filename = secure_filename(f.filename)
                 f.save(os.path.join(app.config['UPLOAD_FOLDER'], 'input_image.jpg'))
                 return redirect('/input_image')
             else:
