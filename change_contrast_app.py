@@ -18,8 +18,8 @@ app.config['SECRET_KEY'] = str(os.urandom(10))
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['OUTPUT_FOLDER'] = OUTPUT_FOLDER
 
-app.config['RECAPTCHA_PUBLIC_KEY'] = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'
-app.config['RECAPTCHA_PRIVATE_KEY'] = '6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe'
+app.config['RECAPTCHA_PUBLIC_KEY'] = '6LdEs3EoAAAAALEG1x6Wq2jmBjyiT-k6RwFRg4rD'
+app.config['RECAPTCHA_PRIVATE_KEY'] = '6LdEs3EoAAAAAI5N1-agyz25V0o0RfqoxGxIYAKN'
 
 
 def change_contrast(img_0, level):
