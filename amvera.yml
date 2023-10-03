@@ -9,5 +9,4 @@ build:
 run:
   scriptName: wsgi.py
   persistenceMount: /data
-  command: gunicorn --bind 0.0.0.0:8080 app:wsgi
   containerPort: 8080
