@@ -7,5 +7,5 @@ meta:
 build:
   requirementsPath: requirements.txt
 run:
-  command: gunicorn --bind 0.0.0.0:5000 wsgi:app
-  containerPort: 5000
+  command: gunicorn --bind 0.0.0.0:80 wsgi:app
+  containerPort: 80
