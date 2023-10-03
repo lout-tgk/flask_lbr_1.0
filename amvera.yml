@@ -7,7 +7,5 @@ meta:
 build:
   requirementsPath: requirements.txt
 run:
-   
-   command: python3 wsgi.py
-   
-   containerPort: 80
+  scriptName: wsgi.py
+  containerPort: 80
