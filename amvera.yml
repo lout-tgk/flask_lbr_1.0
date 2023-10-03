@@ -8,4 +8,5 @@ build:
   requirementsPath: requirements.txt
 run:
   scriptName: wsgi.py
+  persistenceMount: /data
   containerPort: 80
