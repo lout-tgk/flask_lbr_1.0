@@ -11,13 +11,10 @@ app = Flask(__name__)
 UPLOAD_FOLDER = os.path.join('static', 'input_image')
 # папка для сохранения обработанного изображения
 OUTPUT_FOLDER = os.path.join('static', 'output_image')
-# расширения файлов, которые разрешено загружать
-ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 # добавляем конфигурации
 app.config['SECRET_KEY'] = str(os.urandom(10))
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['OUTPUT_FOLDER'] = OUTPUT_FOLDER
-
 app.config['RECAPTCHA_PUBLIC_KEY'] = '6LdEs3EoAAAAALEG1x6Wq2jmBjyiT-k6RwFRg4rD'
 app.config['RECAPTCHA_PRIVATE_KEY'] = '6LdEs3EoAAAAAI5N1-agyz25V0o0RfqoxGxIYAKN'
 
@@ -30,12 +27,6 @@ def change_contrast(img_0, level):
         return 128 + factor * (c - 128)
 
     return img_0.point(contrast)
-
-
-def allowed_file(filename):
-    """ Функция проверки расширения файла """
-    return '.' in filename and \
-           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
 @app.route('/', methods=['GET', 'POST'])
